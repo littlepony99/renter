@@ -1,7 +1,7 @@
 package com.shel.renter.vaadin.rent;
 
 import com.shel.renter.entity.ParkingLot;
-import com.shel.renter.service.ParkingLotService;
+import com.shel.renter.vaadin.service.ParkingLotService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;

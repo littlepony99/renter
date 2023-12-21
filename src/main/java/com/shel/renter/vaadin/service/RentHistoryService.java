@@ -1,4 +1,4 @@
-package com.shel.renter.service;
+package com.shel.renter.vaadin.service;
 
 import com.shel.renter.entity.RentHistory;
 import com.shel.renter.repository.RentHistoryRepository;
