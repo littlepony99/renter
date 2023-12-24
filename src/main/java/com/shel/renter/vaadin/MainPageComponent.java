@@ -3,11 +3,12 @@ package com.shel.renter.vaadin;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
 @Route("/")
-public class MainPageComponent extends VerticalLayout {
+public class MainPageComponent extends HorizontalLayout {
 
     private Button loginBtn;
 
@@ -19,7 +20,7 @@ public class MainPageComponent extends VerticalLayout {
         Button rentButton = new Button("Rent");
         rentButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         rentButton.addClickListener(e -> {
-            UI.getCurrent().navigate("/1");
+            UI.getCurrent().navigate("/rent");
         });
 
         Button historyButton = new Button("History");
@@ -31,9 +32,15 @@ public class MainPageComponent extends VerticalLayout {
         Button logoutButton = new Button("Logout");
         logoutButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         logoutButton.addClickListener(e -> {
-            UI.getCurrent().navigate("/3");
+            UI.getCurrent().navigate("/login");
         });
 
-        add(loginBtn, rentButton, historyButton, logoutButton);
+        var layout = new VerticalLayout(loginBtn, rentButton, historyButton, logoutButton);
+        layout.setHeightFull();
+        layout.setWidthFull();
+        layout.setAlignItems(Alignment.CENTER);
+        this.setHeightFull();
+        this.setWidthFull();
+        add(layout);
     }
 }

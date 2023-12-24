@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Vehicle {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String licencePlate;
     private String make;
@@ -23,5 +23,6 @@ public class Vehicle {
     private String color;
     private String gearType;
     private Float fuelPercentage;
+    private Long lotId;
     // additional params?
 }
