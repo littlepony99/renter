@@ -1,4 +1,4 @@
-package com.shel.renter.service;
+package com.shel.renter.vaadin.service;
 
 import com.shel.renter.entity.CarParking;
 import com.shel.renter.entity.ParkingLot;

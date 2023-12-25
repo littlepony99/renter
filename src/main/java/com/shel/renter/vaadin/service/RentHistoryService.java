@@ -1,9 +1,8 @@
-package com.shel.renter.service;
+package com.shel.renter.vaadin.service;
 
+import com.shel.renter.entity.ParkingLot;
 import com.shel.renter.entity.RentHistory;
 import com.shel.renter.repository.RentHistoryRepository;
-import com.vaadin.flow.spring.annotation.SpringComponent;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,11 @@ public class RentHistoryService {
         return rentHistoryRepository.findAllByCustomerId(userId);
     }
 
-    public void finishRent() {
+    public RentHistory findActiveRent(Long userId) {
+        return rentHistoryRepository.findFirstByCustomerIdAndEndLotNameIsNull(userId);
+    }
 
+    public RentHistory saveRent(RentHistory rentHistory) {
+        return rentHistoryRepository.save(rentHistory);
     }
 }

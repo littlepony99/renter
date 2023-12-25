@@ -18,14 +18,14 @@ import java.time.LocalDate;
 @Builder
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String surname;
     private String name;
     private String patronymicName;
     private LocalDate birthDate;
     private String phoneNumber;
+    private String password;
     private String status;
     private Integer rentCount;
-    private Boolean isActive;
 }
