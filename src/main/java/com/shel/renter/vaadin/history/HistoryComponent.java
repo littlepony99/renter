@@ -18,8 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Route("/history")
 @Tag("history")
 public class HistoryComponent extends VerticalLayout {
-    //    private final CurrentUserService userService;
-
     private final Grid<RentHistory> grid;
     private Button backButton;
 
@@ -35,7 +33,7 @@ public class HistoryComponent extends VerticalLayout {
             UI.getCurrent().getPage().executeJs("window.location.href = 'http://localhost:8080/login'");
         }
 
-        this.backButton = new Button("< Back");
+        this.backButton = new Button("< На головну");
         this.backButton.addClickListener(event -> {
             UI.getCurrent().navigate("/rent");
         });
@@ -43,6 +41,13 @@ public class HistoryComponent extends VerticalLayout {
         grid = new Grid<>(RentHistory.class);
         grid.setColumns("vehicleName", "startLotName", "startRentTime", "endLotName", "endRentTime");
 
+        Grid.Column<RentHistory> vehicleName = grid.getColumnByKey("vehicleName");
+        vehicleName.setHeader("Автомобіль");
+
+        Grid.Column<RentHistory> startLot = grid.getColumnByKey("startLotName");
+        startLot.setHeader("Початкова точка оренди");
+        Grid.Column<RentHistory> endLot = grid.getColumnByKey("endLotName");
+        endLot.setHeader("Кінцева точка оренди");
         Grid.Column<RentHistory> startLotName = grid.getColumnByKey("startRentTime");
         startLotName.setRenderer(new ComponentRenderer<>(e -> {
             if (Objects.nonNull(e.getStartRentTime())) {
@@ -50,8 +55,10 @@ public class HistoryComponent extends VerticalLayout {
             }
             return new Span("");
         }));
+        startLotName.setHeader("Початковий час оренди");
 
         Grid.Column<RentHistory> endLotTime = grid.getColumnByKey("endRentTime");
+        endLotTime.setHeader("Кінцевий час оренди");
         endLotTime.setRenderer(new ComponentRenderer<>(e -> {
             if (Objects.nonNull(e.getEndRentTime())) {
                 return new Span(dateTimeFormatter.format(e.getEndRentTime()));

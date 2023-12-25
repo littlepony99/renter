@@ -30,9 +30,9 @@ public class LoginComponent extends VerticalLayout {
     @Autowired
     public LoginComponent(CustomerService customerService) {
         this.customerService = customerService;
-        this.loginTxt = new TextField("Login");
-        this.passwordTxt = new PasswordField("Password");
-        this.loginButton = new Button("Login");
+        this.loginTxt = new TextField("Логін");
+        this.passwordTxt = new PasswordField("Пароль");
+        this.loginButton = new Button("Вхід");
         var loginLayout = new HorizontalLayout(loginTxt);
         var passLayout = new HorizontalLayout(passwordTxt);
         var btnLayout = new HorizontalLayout(loginButton);
@@ -60,10 +60,9 @@ public class LoginComponent extends VerticalLayout {
                         new Cookie(USER_CODE, String.valueOf(userId));
                 userIdCookie.setMaxAge(120);
                 VaadinService.getCurrentResponse().addCookie(userIdCookie);
-//                this.getUI().ifPresent(v -> v.navigate("/rent"));
                 UI.getCurrent().navigate("/rent");
             } else {
-                Notification.show("Wrong login or password!", 3000, Notification.Position.TOP_CENTER);
+                Notification.show("Невірний логін або пароль!", 3000, Notification.Position.TOP_CENTER);
             }
         });
     }

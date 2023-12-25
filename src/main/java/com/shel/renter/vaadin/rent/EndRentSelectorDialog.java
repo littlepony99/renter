@@ -2,6 +2,7 @@ package com.shel.renter.vaadin.rent;
 
 import com.shel.renter.entity.ParkingLot;
 import com.shel.renter.entity.RentHistory;
+import com.shel.renter.entity.Vehicle;
 import com.shel.renter.vaadin.service.ParkingLotService;
 import com.shel.renter.vaadin.service.RentHistoryService;
 import com.shel.renter.vaadin.service.VehicleService;
@@ -39,9 +40,15 @@ public class EndRentSelectorDialog {
 
         grid = new Grid<>(ParkingLot.class);
         grid.setColumns("name", "city", "address");
+        Grid.Column<ParkingLot> name = grid.getColumnByKey("name");
+        name.setHeader("Ім'я паркування");
+        Grid.Column<ParkingLot> city = grid.getColumnByKey("city");
+        city.setHeader("Місто");
+        Grid.Column<ParkingLot> address = grid.getColumnByKey("address");
+        address.setHeader("Адреса");
         grid.setSelectionMode(Grid.SelectionMode.SINGLE);
-        endRentButton = new Button("Select");
-        cancelButton = new Button("Cancel");
+        endRentButton = new Button("Вибрати Паркування");
+        cancelButton = new Button("Відмінити");
         this.dialog = new Dialog();
         cancelButton.addClickListener(buttonClickEvent -> {
             this.dialog.close();
@@ -56,14 +63,9 @@ public class EndRentSelectorDialog {
                 rentHistory.setEndRentTime(LocalDateTime.now());
                 rentHistoryService.saveRent(rentHistory);
                 vehicleService.endVehicleRent(rentHistory.getVehicleId(), parkingLot.getId());
-                Notification.show("Rent is ended. Thanks!", 4000, Notification.Position.TOP_CENTER);
+                Notification.show("Оренда закінчена. Дякую що користуєтесь нашим сервісом!", 4000, Notification.Position.TOP_CENTER);
                 this.dialog.close();
-//                try {
-//                    Thread.sleep(4000);
-//                } catch (InterruptedException e) {
-//                    throw new RuntimeException(e);
-//                }
-                UI.getCurrent().getPage().reload();
+//                UI.getCurrent().getPage().reload();
             }
         });
     }

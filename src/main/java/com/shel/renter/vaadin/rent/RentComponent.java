@@ -53,11 +53,10 @@ public class RentComponent extends VerticalLayout {
         this.lotDialog = new RentSelectorDialog(parkingLotService, vehicleService, rentHistoryService);
         this.lotDialog.setSize("600px", "500px");
         this.lotDialog.addChangeListener(parkingLot -> {
-            // to notification can also add confirm logic as a component!
             this.container.removeAll();
             this.container.add(getRentInfo(parkingLot));
         });
-        this.rentBtn = new Button("Rent");
+        this.rentBtn = new Button("Орендувати");
         this.rentBtn.addClickListener(event -> {
             this.lotDialog.openDialog();
         });
@@ -79,7 +78,7 @@ public class RentComponent extends VerticalLayout {
                     .findFirst();
             if (optRentHistory.isEmpty()) {
                 container.add(rentBtn);
-                var rentLabelLayout = new HorizontalLayout(new H3("Found vehicles near you. Want to rent something?"));
+                var rentLabelLayout = new HorizontalLayout(new H3("Знайдені автомобілі біля Вас. Бажаєте орендувати?"));
                 rentLabelLayout.setWidthFull();
                 rentLabelLayout.setJustifyContentMode(JustifyContentMode.CENTER);
                 var rentBtnLayout = new HorizontalLayout(rentBtn);
@@ -92,10 +91,10 @@ public class RentComponent extends VerticalLayout {
                 rentLayout.setHeight("85%");
                 this.add(verticalLayout, rentLayout);
             } else {
-                var endRentLabelLayout = new HorizontalLayout(new H3("Found active rent. Want to finish your rent?"));
+                var endRentLabelLayout = new HorizontalLayout(new H3("Знайдені активні оренди. Хочете завершити оренду?"));
                 endRentLabelLayout.setWidthFull();
                 endRentLabelLayout.setJustifyContentMode(JustifyContentMode.CENTER);
-                this.endRentButton = new Button("End Rent");
+                this.endRentButton = new Button("Кінець оренди");
                 var endBtnLayout = new HorizontalLayout(endRentButton);
                 endBtnLayout.setWidthFull();
                 endBtnLayout.setJustifyContentMode(JustifyContentMode.CENTER);
@@ -115,33 +114,34 @@ public class RentComponent extends VerticalLayout {
                 });
 
                 this.endRentButton.addClickListener(event -> {
-                    //add logic for
                     this.endRentDialog.openDialog();
                 });
             }
-//            optRentHistory.ifPresentOrElse(v -> container.add(), () -> container.add(rentBtn));
 
 
         }
     }
 
     private void initializeHeader() {
-        this.historyBtn = new Button("History");
+        this.historyBtn = new Button("Історія");
         this.historyBtn.addClickListener(onClick -> {
             UI.getCurrent().navigate("/history");
         });
-        this.logOutBtn = new Button("Logout");
+        this.logOutBtn = new Button("Вихід");
         this.logOutBtn.addClickListener(event -> {
             Cookie userId = getUserId();
-            userId.setValue("invalid");
-            userId.setMaxAge(0);
-            VaadinService.getCurrentResponse().addCookie(userId);
+            if(Objects.nonNull(userId)){
+                userId.setValue("invalid");
+                userId.setMaxAge(0);
+                VaadinService.getCurrentResponse().addCookie(userId);
+            }
             UI.getCurrent().navigate("/login");
         });
     }
 
     private Span getRentInfo(ParkingLot parkingLot) {
-        return new Span("Car is waiting for you at: " + parkingLot.getName() + " - " + parkingLot.getAddress() + " - " + parkingLot.getCity());
+        //return new Span("Car is waiting for you at: " + parkingLot.getName() + " - " + parkingLot.getAddress() + " - " + parkingLot.getCity());
+        return new Span("Авто чекає Вас за адресою: " + parkingLot.getName() + " - " + parkingLot.getAddress() + " - " + parkingLot.getCity());
     }
 
 }

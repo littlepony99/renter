@@ -36,9 +36,21 @@ public class RentVehicleSelectorDialog {
         grid.setMinHeight("200px");
         grid.setWidthFull();
         grid.setColumns("make", "model", "prodYear", "color", "gearType", "fuelPercentage");
+        Grid.Column<Vehicle> vehicleName = grid.getColumnByKey("make");
+        vehicleName.setHeader("Марка");
+        Grid.Column<Vehicle> model = grid.getColumnByKey("model");
+        model.setHeader("Модель");
+        Grid.Column<Vehicle> prodYear = grid.getColumnByKey("prodYear");
+        prodYear.setHeader("Рік виготовлення");
+        Grid.Column<Vehicle> color = grid.getColumnByKey("color");
+        color.setHeader("Колір");
+        Grid.Column<Vehicle> gearType = grid.getColumnByKey("gearType");
+        gearType.setHeader("Тип Коробки Передач");
+        Grid.Column<Vehicle> fuelPercentage = grid.getColumnByKey("fuelPercentage");
+        fuelPercentage.setHeader("Паливо, %");
         // Set single select mode
         grid.setSelectionMode(Grid.SelectionMode.SINGLE);
-        rentButton = new Button("Select");
+        rentButton = new Button("Обрати");
         this.dialog = new Dialog();
         dialog.add(grid, rentButton);
         grid.setDataProvider(DataProvider.ofCollection(vehicles));
@@ -50,15 +62,10 @@ public class RentVehicleSelectorDialog {
             if (Objects.nonNull(rentVehicle)) {
                 startRent(rentVehicle, parkingLot, userId);
             }
-            String value = "Car rented successfully, your car waiting for you at " + parkingLot.getAddress();
+            String value = "Оренда успішно розпочата, авто чекає Вас за адресою " + parkingLot.getAddress();
             var n = Notification.show(value, 4000, Notification.Position.TOP_CENTER);
-//            try {
-//                Thread.sleep(4000);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
             this.dialog.close();
-            UI.getCurrent().getPage().reload();
+//            UI.getCurrent().getPage().reload();
         });
     }
 

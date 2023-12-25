@@ -38,6 +38,12 @@ public class RentSelectorDialog {
         this.parkingLotService = parkingLotService;
         grid = new Grid<>(ParkingLot.class);
         grid.setColumns("name", "city", "address");
+        Grid.Column<ParkingLot> name = grid.getColumnByKey("name");
+        name.setHeader("Ім'я паркування");
+        Grid.Column<ParkingLot> city = grid.getColumnByKey("city");
+        city.setHeader("Місто");
+        Grid.Column<ParkingLot> address = grid.getColumnByKey("address");
+        address.setHeader("Адреса");
         grid.setSelectionMode(Grid.SelectionMode.SINGLE);
         rentButton = new Button("Select");
         cancelButton = new Button("Cancel");
